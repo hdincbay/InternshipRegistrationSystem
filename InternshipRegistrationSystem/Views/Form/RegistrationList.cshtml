@@ -1,0 +1,32 @@
+﻿@model IList<RegistrationForm>
+
+<div class="d-flex">
+    <div class="col-md-9"></div>
+    <div class="col-md-3">
+        <a class="btn btn-success" href="/Form/RegistrationForm">Başvuru Oluştur</a>
+    </div>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Başlık</th>
+            <th>Açıklama</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model is not null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.RegistrationFormId</td>
+                    <td>@item.Title</td>
+                    <td>@item.Description</td>
+                    <td>@item.Status!.Name</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

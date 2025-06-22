@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    Layout = "_Layout"; // varsayılan layout
+
+    if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+    {
+        var user = HttpContextAccessor.HttpContext.User;
+        
+        if (user.IsInRole("Profesör"))
+        {
+            Layout = "~/Views/Shared/_LayoutProfessor.cshtml";
+        }
+        else if (user.IsInRole("Araştırma Görevlisi"))
+        {
+            Layout = "~/Views/Shared/_LayoutAssistant.cshtml";
+        }
+        else if (user.IsInRole("Stajyer"))
+        {
+            Layout = "~/Views/Shared/_LayoutIntern.cshtml";
+        }
+        else if (user.IsInRole("Stajyer Adayı"))
+        {
+            Layout = "~/Views/Shared/_LayoutCandidateIntern.cshtml";
+        }
+    }
+}

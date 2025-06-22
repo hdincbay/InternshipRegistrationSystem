@@ -60,7 +60,6 @@ namespace InternshipRegistrationSystem.Controllers
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-                // İstersen kullanıcıyı silebilirsin ya da farklı işlem yapabilirsin
                 return View(user);
             }
 
@@ -138,7 +137,6 @@ namespace InternshipRegistrationSystem.Controllers
             {
                 var roleName = "Araştırma Görevlisi";
 
-                // Rol mevcut değilse oluştur (opsiyonel ama güvenli)
                 var roleExists = await _roleManager.RoleExistsAsync(roleName);
                 if (!roleExists)
                 {
@@ -150,7 +148,6 @@ namespace InternshipRegistrationSystem.Controllers
                     await _roleManager.CreateAsync(role);
                 }
 
-                // Kullanıcıya rol ata
                 var roleAssignResult = await _userManager.AddToRoleAsync(user, roleName);
 
                 if (roleAssignResult.Succeeded)
@@ -159,14 +156,12 @@ namespace InternshipRegistrationSystem.Controllers
                 }
                 else
                 {
-                    // Hataları modelstate'e aktar
                     foreach (var error in roleAssignResult.Errors)
                         ModelState.AddModelError("", error.Description);
                 }
             }
             else
             {
-                // Hataları modelstate'e aktar
                 foreach (var error in createResult.Errors)
                     ModelState.AddModelError("", error.Description);
             }
